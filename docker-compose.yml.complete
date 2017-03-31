@@ -1,0 +1,40 @@
+version: '2'
+services:
+    # bind9:
+    #     build: bind9
+    #     environment:
+    #         BIND9_ROOTDOMAIN: example.com
+    #         BIND9_KEYNAME: secret
+    #         BIND9_KEY_ALGORITHM: hmac-md5
+    #         BIND9_KEY: c2VjcmV0
+    #         BIND9_FORWARDERS: 8.8.8.8;4.4.4.4;
+    #         BIND9_IP: 0.0.0.0
+    kamailio:
+        build: kamailio
+        # depends_on:
+        #     - mysql
+        #     - rtpproxy
+        #     - bind9
+        ports:
+            - "10080:10080"
+            - "10443:10443"
+            - "5090:5090"
+    # mysql:
+    #     build: mysql
+    #     environment:
+    #         MYSQL_ROOT_PASSWORD: password123
+    #         MYSQL_USER: kamailio
+    #         MYSQL_PASSWORD: kamailio
+    #         MYSQL_DATABASE: kamailio
+    #     volumes:
+    #         - /home/nicopace/projects/redlibre/rhizomatica/voip-client/server-data/mysql:/bitnami/mysql
+    # rtpproxy:
+    #     build: rtpproxy
+    #     ports:
+    #         - "9082:9082"
+    #         - "16384-16639:16384-16639/UDP"
+    # couchdb:
+    #     build: couchdb
+    #     environment:
+    #         COUCHDB_USER: admin
+    #         COUCHDB_PASSWORD: admin

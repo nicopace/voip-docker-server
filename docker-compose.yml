@@ -1,28 +1,8 @@
 version: '2'
 services:
-    bind9:
-        build: bind9
-        environment:
-            BIND9_ROOTDOMAIN: example.com
-            BIND9_KEYNAME: secret
-            BIND9_KEY_ALGORITHM: hmac-md5
-            BIND9_KEY: c2VjcmV0
-            BIND9_FORWARDERS: 8.8.8.8;4.4.4.4;
-            BIND9_IP: 0.0.0.0
     kamailio:
         build: kamailio
-        depends_on:
-            - mysql
-            - rtpproxy
-            - bind9
-    mysql:
-        build: mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: password123
-    rtpproxy:
-        build: rtpproxy
-    couchdb:
-        build: couchdb
-        environment:
-            COUCHDB_USER: admin
-            COUCHDB_PASSWORD: admin
+        ports:
+            - "10080:10080"
+            - "10443:10443"
+            - "5090:5090"
