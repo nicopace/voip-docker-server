@@ -1,14 +1,5 @@
 #!KAMAILIO
 #
-# Kamailio (OpenSER) SIP Server v4.4 - default configuration script
-#     - web: http://www.kamailio.org
-#     - git: http://sip-router.org
-#
-# Direct your questions about this file to: <sr-users@lists.sip-router.org>
-#
-# Refer to the Core CookBook at http://www.kamailio.org/wiki/
-# for an explanation of possible statements, functions and parameters.
-#
 # Several features can be enabled using '#!define WITH_FEATURE' directives:
 #
 # *** To run in debug mode:
@@ -86,22 +77,22 @@
 #     - define WITH_ACCDB
 #     - add following columns to database
 #!ifdef ACCDB_COMMENT
-  ALTER TABLE acc ADD COLUMN src_user VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE acc ADD COLUMN src_domain VARCHAR(128) NOT NULL DEFAULT '';
-  ALTER TABLE acc ADD COLUMN src_ip varchar(64) NOT NULL default '';
-  ALTER TABLE acc ADD COLUMN dst_ouser VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE acc ADD COLUMN dst_user VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE acc ADD COLUMN dst_domain VARCHAR(128) NOT NULL DEFAULT '';
-  ALTER TABLE missed_calls ADD COLUMN src_user VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE missed_calls ADD COLUMN src_domain VARCHAR(128) NOT NULL DEFAULT '';
-  ALTER TABLE missed_calls ADD COLUMN src_ip varchar(64) NOT NULL default '';
-  ALTER TABLE missed_calls ADD COLUMN dst_ouser VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE missed_calls ADD COLUMN dst_user VARCHAR(64) NOT NULL DEFAULT '';
-  ALTER TABLE missed_calls ADD COLUMN dst_domain VARCHAR(128) NOT NULL DEFAULT '';
+  # ALTER TABLE acc ADD COLUMN src_user VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE acc ADD COLUMN src_domain VARCHAR(128) NOT NULL DEFAULT '';
+  # ALTER TABLE acc ADD COLUMN src_ip varchar(64) NOT NULL default '';
+  # ALTER TABLE acc ADD COLUMN dst_ouser VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE acc ADD COLUMN dst_user VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE acc ADD COLUMN dst_domain VARCHAR(128) NOT NULL DEFAULT '';
+  # ALTER TABLE missed_calls ADD COLUMN src_user VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE missed_calls ADD COLUMN src_domain VARCHAR(128) NOT NULL DEFAULT '';
+  # ALTER TABLE missed_calls ADD COLUMN src_ip varchar(64) NOT NULL default '';
+  # ALTER TABLE missed_calls ADD COLUMN dst_ouser VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE missed_calls ADD COLUMN dst_user VARCHAR(64) NOT NULL DEFAULT '';
+  # ALTER TABLE missed_calls ADD COLUMN dst_domain VARCHAR(128) NOT NULL DEFAULT '';
 #!endif
 
 ####### Include Local Config If Exists #########
-import_file "kamailio-local.cfg"
+# import_file "kamailio-local.cfg"
 
 ####### Defined Values #########
 
@@ -163,6 +154,7 @@ children=8
 /* uncomment and configure the following line if you want Kamailio to
    bind on a specific interface/port/proto (default bind on all available) */
 #listen=udp:10.0.0.10:5060
+listen=0.0.0.0:5090
 
 /* port to listen to */
 #port=5060
@@ -191,16 +183,16 @@ tcp_connection_lifetime=3605
 # pstn.gw_ip = "10.0.0.101" desc "My PSTN GW Address"
 #
 # - by default is empty to avoid misrouting
-pstn.gw_ip = "" desc "PSTN GW Address"
-pstn.gw_port = "" desc "PSTN GW Port"
+# pstn.gw_ip = "" desc "PSTN GW Address"
+# pstn.gw_port = "" desc "PSTN GW Port"
 #!endif
 
 #!ifdef WITH_VOICEMAIL
 # VoiceMail Routing on offline, busy or no answer
 #
 # - by default Voicemail server IP is empty to avoid misrouting
-voicemail.srv_ip = "" desc "VoiceMail IP Address"
-voicemail.srv_port = "5060" desc "VoiceMail Port"
+# voicemail.srv_ip = "" desc "VoiceMail IP Address"
+# voicemail.srv_port = "5060" desc "VoiceMail Port"
 #!endif
 
 ####### Modules Section ########
@@ -338,36 +330,36 @@ modparam("acc", "log_extra",
 modparam("acc", "failed_transaction_flag", FLT_ACCFAILED)
 /* enhanced DB accounting */
 #!ifdef WITH_ACCDB
-modparam("acc", "db_flag", FLT_ACC)
-modparam("acc", "db_missed_flag", FLT_ACCMISSED)
-modparam("acc", "db_url", DBURL)
-modparam("acc", "db_extra",
-	"src_user=$fU;src_domain=$fd;src_ip=$si;"
-	"dst_ouser=$tU;dst_user=$rU;dst_domain=$rd")
+# modparam("acc", "db_flag", FLT_ACC)
+# modparam("acc", "db_missed_flag", FLT_ACCMISSED)
+# modparam("acc", "db_url", DBURL)
+# modparam("acc", "db_extra",
+	# "src_user=$fU;src_domain=$fd;src_ip=$si;"
+	# "dst_ouser=$tU;dst_user=$rU;dst_domain=$rd")
 #!endif
 
 
 # ----- usrloc params -----
 /* enable DB persistency for location entries */
 #!ifdef WITH_USRLOCDB
-modparam("usrloc", "db_url", DBURL)
-modparam("usrloc", "db_mode", 2)
-modparam("usrloc", "use_domain", MULTIDOMAIN)
+# modparam("usrloc", "db_url", DBURL)
+# modparam("usrloc", "db_mode", 2)
+# modparam("usrloc", "use_domain", MULTIDOMAIN)
 #!endif
 
 
 # ----- auth_db params -----
 #!ifdef WITH_AUTH
-modparam("auth_db", "db_url", DBURL)
-modparam("auth_db", "calculate_ha1", yes)
-modparam("auth_db", "password_column", "password")
-modparam("auth_db", "load_credentials", "")
-modparam("auth_db", "use_domain", MULTIDOMAIN)
+# modparam("auth_db", "db_url", DBURL)
+# modparam("auth_db", "calculate_ha1", yes)
+# modparam("auth_db", "password_column", "password")
+# modparam("auth_db", "load_credentials", "")
+# modparam("auth_db", "use_domain", MULTIDOMAIN)
 
 # ----- permissions params -----
 #!ifdef WITH_IPAUTH
-modparam("permissions", "db_url", DBURL)
-modparam("permissions", "db_mode", 1)
+# modparam("permissions", "db_url", DBURL)
+# modparam("permissions", "db_mode", 1)
 #!endif
 
 #!endif
@@ -375,49 +367,49 @@ modparam("permissions", "db_mode", 1)
 
 # ----- alias_db params -----
 #!ifdef WITH_ALIASDB
-modparam("alias_db", "db_url", DBURL)
-modparam("alias_db", "use_domain", MULTIDOMAIN)
+# modparam("alias_db", "db_url", DBURL)
+# modparam("alias_db", "use_domain", MULTIDOMAIN)
 #!endif
 
 
 # ----- speeddial params -----
 #!ifdef WITH_SPEEDDIAL
-modparam("speeddial", "db_url", DBURL)
-modparam("speeddial", "use_domain", MULTIDOMAIN)
+# modparam("speeddial", "db_url", DBURL)
+# modparam("speeddial", "use_domain", MULTIDOMAIN)
 #!endif
 
 
 # ----- domain params -----
 #!ifdef WITH_MULTIDOMAIN
-modparam("domain", "db_url", DBURL)
+# modparam("domain", "db_url", DBURL)
 # register callback to match myself condition with domains list
-modparam("domain", "register_myself", 1)
+# modparam("domain", "register_myself", 1)
 #!endif
 
 
 #!ifdef WITH_PRESENCE
 # ----- presence params -----
-modparam("presence", "db_url", DBURL)
+# modparam("presence", "db_url", DBURL)
 
 # ----- presence_xml params -----
-modparam("presence_xml", "db_url", DBURL)
-modparam("presence_xml", "force_active", 1)
+# modparam("presence_xml", "db_url", DBURL)
+# modparam("presence_xml", "force_active", 1)
 #!endif
 
 
 #!ifdef WITH_NAT
 # ----- rtpproxy params -----
-modparam("rtpproxy", "rtpproxy_sock", "udp:127.0.0.1:7722")
+# modparam("rtpproxy", "rtpproxy_sock", "udp:127.0.0.1:7722")
 
 # ----- nathelper params -----
-modparam("nathelper", "natping_interval", 30)
-modparam("nathelper", "ping_nated_only", 1)
-modparam("nathelper", "sipping_bflag", FLB_NATSIPPING)
-modparam("nathelper", "sipping_from", "sip:pinger@kamailio.org")
+# modparam("nathelper", "natping_interval", 30)
+# modparam("nathelper", "ping_nated_only", 1)
+# modparam("nathelper", "sipping_bflag", FLB_NATSIPPING)
+# modparam("nathelper", "sipping_from", "sip:pinger@kamailio.org")
 
 # params needed for NAT traversal in other modules
-modparam("nathelper|registrar", "received_avp", "$avp(RECEIVED)")
-modparam("usrloc", "nat_bflag", FLB_NATB)
+# modparam("nathelper|registrar", "received_avp", "$avp(RECEIVED)")
+# modparam("usrloc", "nat_bflag", FLB_NATB)
 #!endif
 
 
@@ -428,13 +420,13 @@ modparam("tls", "config", "/etc/kamailio/tls.cfg")
 
 #!ifdef WITH_ANTIFLOOD
 # ----- pike params -----
-modparam("pike", "sampling_time_unit", 2)
-modparam("pike", "reqs_density_per_unit", 16)
-modparam("pike", "remove_latency", 4)
+# modparam("pike", "sampling_time_unit", 2)
+# modparam("pike", "reqs_density_per_unit", 16)
+# modparam("pike", "remove_latency", 4)
 
 # ----- htable params -----
 # ip ban htable with autoexpire after 5 minutes
-modparam("htable", "htable", "ipban=>size=8;autoexpire=300;")
+# modparam("htable", "htable", "ipban=>size=8;autoexpire=300;")
 #!endif
 
 #!ifdef WITH_XMLRPC
@@ -546,26 +538,26 @@ route[RELAY] {
 # Per SIP request initial checks
 route[REQINIT] {
 #!ifdef WITH_ANTIFLOOD
-	# flood detection from same IP and traffic ban for a while
-	# be sure you exclude checking trusted peers, such as pstn gateways
-	# - local host excluded (e.g., loop to self)
-	if(src_ip!=myself) {
-		if($sht(ipban=>$si)!=$null) {
-			# ip is already blocked
-			xdbg("request from blocked IP - $rm from $fu (IP:$si:$sp)\n");
-			exit;
-		}
-		if (!pike_check_req()) {
-			xlog("L_ALERT","ALERT: pike blocking $rm from $fu (IP:$si:$sp)\n");
-			$sht(ipban=>$si) = 1;
-			exit;
-		}
-	}
-	if($ua =~ "friendly-scanner|sipcli") {
-		# silent drop for scanners - uncomment next line if want to reply
-		# sl_send_reply("200", "OK");
-		exit;
-	}
+	# # flood detection from same IP and traffic ban for a while
+	# # be sure you exclude checking trusted peers, such as pstn gateways
+	# # - local host excluded (e.g., loop to self)
+	# if(src_ip!=myself) {
+	# 	if($sht(ipban=>$si)!=$null) {
+	# 		# ip is already blocked
+	# 		xdbg("request from blocked IP - $rm from $fu (IP:$si:$sp)\n");
+	# 		exit;
+	# 	}
+	# 	if (!pike_check_req()) {
+	# 		xlog("L_ALERT","ALERT: pike blocking $rm from $fu (IP:$si:$sp)\n");
+	# 		$sht(ipban=>$si) = 1;
+	# 		exit;
+	# 	}
+	# }
+	# if($ua =~ "friendly-scanner|sipcli") {
+	# 	# silent drop for scanners - uncomment next line if want to reply
+	# 	# sl_send_reply("200", "OK");
+	# 	exit;
+	# }
 #!endif
 
 	if (!mf_process_maxfwd_header("10")) {
@@ -776,34 +768,34 @@ route[NATDETECT] {
 # RTPProxy control and signaling updates for NAT traversal
 route[NATMANAGE] {
 #!ifdef WITH_NAT
-	if (is_request()) {
-		if(has_totag()) {
-			if(check_route_param("nat=yes")) {
-				setbflag(FLB_NATB);
-			}
-		}
-	}
-	if (!(isflagset(FLT_NATS) || isbflagset(FLB_NATB))) return;
-
-	if(nat_uac_test("8")) {
-		rtpproxy_manage("co");
-	} else {
-		rtpproxy_manage("cor");
-	}
-
-	if (is_request()) {
-		if (!has_totag()) {
-			if(t_is_branch_route()) {
-				add_rr_param(";nat=yes");
-			}
-		}
-	}
-	if (is_reply()) {
-		if(isbflagset(FLB_NATB)) {
-			if(is_first_hop())
-				set_contact_alias();
-		}
-	}
+	# if (is_request()) {
+	# 	if(has_totag()) {
+	# 		if(check_route_param("nat=yes")) {
+	# 			setbflag(FLB_NATB);
+	# 		}
+	# 	}
+	# }
+	# if (!(isflagset(FLT_NATS) || isbflagset(FLB_NATB))) return;
+        #
+	# if(nat_uac_test("8")) {
+	# 	rtpproxy_manage("co");
+	# } else {
+	# 	rtpproxy_manage("cor");
+	# }
+        #
+	# if (is_request()) {
+	# 	if (!has_totag()) {
+	# 		if(t_is_branch_route()) {
+	# 			add_rr_param(";nat=yes");
+	# 		}
+	# 	}
+	# }
+	# if (is_reply()) {
+	# 	if(isbflagset(FLB_NATB)) {
+	# 		if(is_first_hop())
+	# 			set_contact_alias();
+	# 	}
+	# }
 #!endif
 	return;
 }
@@ -830,32 +822,32 @@ route[SIPOUT] {
 # PSTN GW routing
 route[PSTN] {
 #!ifdef WITH_PSTN
-	# check if PSTN GW IP is defined
-	if (strempty($sel(cfg_get.pstn.gw_ip))) {
-		xlog("SCRIPT: PSTN routing enabled but pstn.gw_ip not defined\n");
-		return;
-	}
-
-	# route to PSTN dialed numbers starting with '+' or '00'
-	#     (international format)
-	# - update the condition to match your dialing rules for PSTN routing
-	if(!($rU=~"^(\+|00)[1-9][0-9]{3,20}$")) return;
-
-	# only local users allowed to call
-	if(from_uri!=myself) {
-		sl_send_reply("403", "Not Allowed");
-		exit;
-	}
-
-	if (strempty($sel(cfg_get.pstn.gw_port))) {
-		$ru = "sip:" + $rU + "@" + $sel(cfg_get.pstn.gw_ip);
-	} else {
-		$ru = "sip:" + $rU + "@" + $sel(cfg_get.pstn.gw_ip) + ":"
-					+ $sel(cfg_get.pstn.gw_port);
-	}
-
-	route(RELAY);
-	exit;
+	# # check if PSTN GW IP is defined
+	# if (strempty($sel(cfg_get.pstn.gw_ip))) {
+	# 	xlog("SCRIPT: PSTN routing enabled but pstn.gw_ip not defined\n");
+	# 	return;
+	# }
+        #
+	# # route to PSTN dialed numbers starting with '+' or '00'
+	# #     (international format)
+	# # - update the condition to match your dialing rules for PSTN routing
+	# if(!($rU=~"^(\+|00)[1-9][0-9]{3,20}$")) return;
+        #
+	# # only local users allowed to call
+	# if(from_uri!=myself) {
+	# 	sl_send_reply("403", "Not Allowed");
+	# 	exit;
+	# }
+        #
+	# if (strempty($sel(cfg_get.pstn.gw_port))) {
+	# 	$ru = "sip:" + $rU + "@" + $sel(cfg_get.pstn.gw_ip);
+	# } else {
+	# 	$ru = "sip:" + $rU + "@" + $sel(cfg_get.pstn.gw_ip) + ":"
+	# 				+ $sel(cfg_get.pstn.gw_port);
+	# }
+        #
+	# route(RELAY);
+	# exit;
 #!endif
 
 	return;
@@ -883,26 +875,26 @@ route[XMLRPC] {
 # Routing to voicemail server
 route[TOVOICEMAIL] {
 #!ifdef WITH_VOICEMAIL
-	if(!is_method("INVITE|SUBSCRIBE")) return;
-
-	# check if VoiceMail server IP is defined
-	if (strempty($sel(cfg_get.voicemail.srv_ip))) {
-		xlog("SCRIPT: VoiceMail routing enabled but IP not defined\n");
-		return;
-	}
-	if(is_method("INVITE")) {
-		if($avp(oexten)==$null) return;
-
-		$ru = "sip:" + $avp(oexten) + "@" + $sel(cfg_get.voicemail.srv_ip)
-				+ ":" + $sel(cfg_get.voicemail.srv_port);
-	} else {
-		if($rU==$null) return;
-
-		$ru = "sip:" + $rU + "@" + $sel(cfg_get.voicemail.srv_ip)
-				+ ":" + $sel(cfg_get.voicemail.srv_port);
-	}
-	route(RELAY);
-	exit;
+	# if(!is_method("INVITE|SUBSCRIBE")) return;
+        #
+	# # check if VoiceMail server IP is defined
+	# if (strempty($sel(cfg_get.voicemail.srv_ip))) {
+	# 	xlog("SCRIPT: VoiceMail routing enabled but IP not defined\n");
+	# 	return;
+	# }
+	# if(is_method("INVITE")) {
+	# 	if($avp(oexten)==$null) return;
+        #
+	# 	$ru = "sip:" + $avp(oexten) + "@" + $sel(cfg_get.voicemail.srv_ip)
+	# 			+ ":" + $sel(cfg_get.voicemail.srv_port);
+	# } else {
+	# 	if($rU==$null) return;
+        #
+	# 	$ru = "sip:" + $rU + "@" + $sel(cfg_get.voicemail.srv_ip)
+	# 			+ ":" + $sel(cfg_get.voicemail.srv_port);
+	# }
+	# route(RELAY);
+	# exit;
 #!endif
 
 	return;
@@ -939,10 +931,10 @@ failure_route[MANAGE_FAILURE] {
 #!ifdef WITH_VOICEMAIL
 	# serial forking
 	# - route to voicemail on busy or no answer (timeout)
-	if (t_check_status("486|408")) {
-		$du = $null;
-		route(TOVOICEMAIL);
-		exit;
-	}
+	# if (t_check_status("486|408")) {
+	# 	$du = $null;
+	# 	route(TOVOICEMAIL);
+	# 	exit;
+	# }
 #!endif
 }
